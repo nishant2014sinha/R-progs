@@ -1,0 +1,120 @@
+#File name- nishant2014sinha_HW04_script
+#Created by- Nishant Sinha
+#Creation date- 06/05/2016
+#Purpose- Practice the concept of Lecture 01-04
+#Last executed-06/06/2016
+
+#Step 1-Housekeeping steps  
+Sys.time()
+ls()
+rm(list=ls())
+ls()
+
+#Step 2-Load the workspace HW04.RData
+
+load("D:\\Study_material_MS_MIS\\summer16\\assignment\\assignment 4\\HW04.RData")
+
+#Step 2a- list the contents of the current workspace
+
+ls()
+
+#Step 2b- Display the structure of the object, drought
+
+str(drought)
+
+#Step 2c- Display the summary of drought
+
+summary(drought)
+
+#Step 3-Loading the csv file into an object 
+
+fipsTable<- read.csv("D:\\Study_material_MS_MIS\\summer16\\assignment\\assignment 4\\US_Fips.csv", header = TRUE ,sep=",",colClasses= "character")
+
+#Step 3a- Structure of fipsTable
+
+str(fipsTable)
+
+#Step 3b- Making coloumns of the fipsTable available to R directly using attach function
+
+attach(fipsTable)
+
+#Step 3c- Concatenating 2 columns of fipsTable, State.FIPS.Code & County.FIPS.Code, without any seperator
+
+fipsTable$FIPS<-paste(State.FIPS.Code, County.FIPS.Code, sep="")
+
+#Step 4- Creating subset data frame,TXCounties, with State as TX and entity as County.
+
+(TXCounties<-fipsTable[(State.Abbreviation=='TX'& Entity.Description=="County") ,c(1,6,8)])
+
+#Step 4a- Structure of TXCounties
+
+str(TXCounties)
+
+#Step 4b- Detaching fipsTable from workspace 
+
+detach(fipsTable)
+
+#Step 4c- Changing the names of the columns in TXCounties, replacing .Abbreviation with nothing so and replacing GU.Name with County
+
+names(TXCounties)[1]<-sub('.Abbreviation','',names(TXCounties)[1])
+
+names(TXCounties)[2]<-sub('GU.Name','County',names(TXCounties)[2])
+
+names(TXCounties)
+
+#Step 5- Merging 2 data frames, drought and TXCounties, with data from all rows of both df 
+ 
+(TXDrought<-merge(TXCounties,drought,all=TRUE))
+
+#Summary of new merged data frame
+
+summary(TXDrought)
+
+#Step 6- Creating new columns in drought that numeric value of None,D0,D1,D2,D3,D4
+
+TXDrought$Area_None=TXDrought$CountyArea*(TXDrought$None/100)
+TXDrought$Area_D0=TXDrought$CountyArea*(TXDrought$D0/100)
+TXDrought$Area_D1=TXDrought$CountyArea*(TXDrought$D1/100)
+TXDrought$Area_D2=TXDrought$CountyArea*(TXDrought$D2/100)
+TXDrought$Area_D3=TXDrought$CountyArea*(TXDrought$D3/100)
+TXDrought$Area_D4=TXDrought$CountyArea*(TXDrought$D4/100)
+
+#Step 6a- Displaying updated drought data
+
+TXDrought
+
+#Displaying structure of updated drought
+
+str(TXDrought)
+
+#Step 6b- Displaying the statewide totals of each of the new Area columns using colSums()
+
+colSums(TXDrought[,12:17],na.rm=TRUE)
+
+#Displaying the statewide totals of each of the new Area columns using apply()
+
+apply(TXDrought[,12:17],2,sum,na.rm=TRUE)
+
+#Step 7- Displaying a list of County names and D1 Area from the highest to the lowest D1 Area value
+
+TXDrought[order(TXDrought$Area_D1,na.last=TRUE,decreasing=TRUE),c(3,14)]
+
+#Step 8- Displaying a list of County names and None for the top ten counties with the largest percentage of None
+
+TXDrought[order(TXDrought$None,na.last=TRUE,decreasing=TRUE),c(3,6)][1:10,]
+
+#Step 9-Displaying a list of County names with D0> 100% percent and also leaving out NA
+
+TXDrought$County[TXDrought$D0<100 & !is.na(TXDrought$D0)]
+
+#Step 10-Displaying all data for Counties starting with C
+
+TXDrought[grep('^C',TXDrought$County),]
+
+#Step 11-Displaying the contents of the workspace
+
+ls()
+
+#Step 12- Removing everything from the workspace except the last data frame created
+
+rm("drought", "fipsTable", "TXCounties" )
