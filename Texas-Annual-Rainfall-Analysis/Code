@@ -1,0 +1,96 @@
+Sys.time()
+
+
+#Step 1- Housekeeping steps
+
+ls()
+rm(list=ls())
+ls()
+
+#Step 2- Reading table in text file to a data frame and replacing missing values(-999) by NA.
+
+rainfalldf<-read.table("D:\\Study_material_MS_MIS\\summer16\\assignment\\assignment 5\\rainfall.txt", header= T, sep="\t", na.strings="-999")
+
+#Summary of data frame rainfalldf 
+
+summary(rainfalldf)
+
+
+#Step 3- Creating data frame that contains only the statewide precipitation data for Texas
+
+(rainfallTXdf<-with(rainfalldf,rainfalldf[ST.CD=="TX-ST",])[-1])
+
+#For ease of coding I have attached rainfallTXdf 
+
+attach(rainfallTXdf)
+
+#Using min and with function to display the minimum annual Texas precipitation amount 
+
+with(rainfallTXdf, min(ANNUAL,na.rm=TRUE))
+
+#Using max and with function to display the maximum annual Texas precipitation amount 
+
+with(rainfallTXdf, max(ANNUAL,na.rm=TRUE))
+
+#Step 4- Directing all graphic output to your PDF document 
+pdf("D:\\Study_material_MS_MIS\\summer16\\assignment\\assignment 5\\nishant2014sinha_HW05_graphics.pdf")
+
+#Step 5- Creating a histogram of the annual precipitation amounts from rainfallTXdf 
+
+minAnnual<- with(rainfallTXdf, min(ANNUAL,na.rm=TRUE))
+maxAnnual<- with(rainfallTXdf, max(ANNUAL,na.rm=TRUE))
+
+#multiple of 4 below the minimum. This will become my starting point of the break value.
+
+if(minAnnual%%4==0)
+{start<-(minAnnual%/%4-1)*4
+}else 
+{
+start<-(minAnnual%/%4)*4
+}
+
+#multiple of 4 above the maximum. This will become my ending point of the break value. 
+end<-(maxAnnual%/%4+1)*4 
+
+#break value --- brk 
+brk<-seq(start,end,4)
+
+hist(ANNUAL, breaks=brk, freq= F, xlab= "Precipitation", main= "Texas Annual Precipitation Distribution")
+
+#Step 6- Adding a blue line to the graph that shows the normal distribution density 
+
+ANNUALNEW<-subset(ANNUAL,!is.na(ANNUAL))
+xd<-seq(start,end,0.01)
+yd<-dnorm(xd,mean=mean(ANNUALNEW), sd=sd(ANNUALNEW))
+lines(xd,yd,col="blue",add=T)
+
+#Step 7- Adding a red vertical line at the mean annual precipitation value
+abline(v=mean(ANNUAL,na.rm=TRUE),col='red')
+
+Step 8-Plottting using the Texas data showing the April precipitation amounts compared to the annual amounts
+
+xplot<- APR
+yplot<- ANNUAL
+plot(xplot, yplot, type="p", pch=23,col="dark green",bg="dark green", cex=0.5, main="Texas Precipitation Analysis", xlab="April Precipitation", ylab="Annual Precipitation")
+
+#Step 9- Adding a fit line to the plot 
+
+abline(lm(yplot~xplot)) 
+
+#Step 10- Showing the date and time of creation in the lower right hand corner of the graph
+
+timestamp<-format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+text(6,15,timestamp, adj=c(1,0))
+
+#Step 11- Creating a boxplot of the Texas precipitation amounts of all years by month
+
+boxplot(rainfallTXdf[2:13],outlines=F, range=0, main=("Texas Historical vs. 2015 Precipitation by Month"), xlab="Month", ylab= "Inches", ylim=c(0,10), col= "light blue") 
+
+#Step 12- Showing the precipitation amount in 2015 for each month using a blue dot 
+
+rain2015<-subset(rainfallTXdf[2:13],YEAR=="2015") 
+stripchart(rain2015, vertical = T, add= T, col = 'blue', pch= 19, bg='blue', cex=1.5) 
+
+#Step 13- 
+
+graphics.off()
