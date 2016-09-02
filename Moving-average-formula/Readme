@@ -1,0 +1,38 @@
+2. The moving average (MA) process we are using in this assignment is defined by the following
+recursive formula:
+Xn = 2 + ωn – αωn-1 + βXn-1
+where the ω (Greek letter omega) sequence is random noise. The Greek letter alpha (α)
+represents the percentage that the “average” value is influenced by the previous amount of
+noise. The Greek letter beta (β) represents the percentage that the “average” value is
+influenced by the previous “average” value. The subscript n represents the position of the value
+in the time sequence. You might think of n as the present value and n-1 as the previous value.
+For this assignment you will need to create your own data. Simulate 10,000 values from this
+process using standard normal values for the noise and values for α and β of 0.33 and 0.66
+respectively. Use a loop to control the creation of your vector of moving average values (X).
+Use a seed value of 52916 when you generate the random values. Plot only the last 1,000
+values from this sequence with lines connecting the values. NOTE: The values for the X axis are
+1 through 1000 to represent the 1000 points we are plotting even though the actual index
+values from the vector will be different.
+
+3. Convert the completed code to a function including the code that will plot the graph. The values
+of α and β will be the only required arguments for the function. The seed along with the
+number of values simulated and the number of values plotted will be optional arguments with
+default values of 52916, 10,000 and 1,000 respectively. Be sure to adjust your code so it can
+adapt to the values that will be supplied. The X axis label must be able to display whatever
+values of α and β that are supplied as arguments to the function. NOTE: Only place inside the
+function those steps that must be executed each time the function is called.
+
+4. Set up your graphics so that there will be two rows of graphics on the output page. We want to
+set the overall margins of the graphics within the page to be 1 inch on the top, 1.5 inches on the
+left to allow space for punched holes, 0.5 inches on the right and 1 inch on the bottom. Set the
+margins of the individual graph to be 2 lines on top, 4 lines left, 0 lines right and 5 lines bottom.
+
+5. Call your function twice. The first call should use a value of 0.33 for α and 0.66 for β as its only
+arguments. The second function call will have arguments of 0.20 and 0.80 for α and β
+respectively, along with arguments to run 5000 simulations and plot 500 values.
+
+6. Write the system time in the bottom outer margin of the page outside of the individual plots.
+Left justify the time as shown in the sample.
+
+7. After you have finished writing and testing your code close R. Then reopen R and run your
+script. Submit to WebAssign the script, console, and output from this final run.
