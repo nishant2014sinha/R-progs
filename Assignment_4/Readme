@@ -1,0 +1,66 @@
+Data files : HW04.RData and US_Fips.csv
+
+For HW04.r
+a. Show the contents of the newly loaded workspace.
+b. Display the structure of the object loaded in the HW04 workspace.
+c. Display a summary of the object loaded in the HW04 workspace.
+
+For US_fips
+a. Show the structure of the new data frame.
+b. Execute a function that will make the columns of the data frame available to R directly
+by column name.
+c. Create a new column named FIPS in the data frame by concatenating the state FIPS and
+County FIPS code values. (The value for the first row would be 01067.) Use only the
+column name to refer to the columns in the function arguments. 
+
+Create a new data frame that is a subset of the data loaded from the csv file containing only
+Texas counties (State Abbreviation of TX and Entity Description of County). Use a logical test to
+specify the rows and column numbers to select the columns to keep. The new data frame
+should have the columns State.Abbreviation, GU.Name, and your new FIPS column.
+a. Show the structure of the new data frame.
+b. Execute a function so that the column names of the previous data frame are no longer
+available in the R search path.
+c. Use a text replacement function in an assignment statement to change the names of
+two of the columns in the new data frame. The function names() will make the column
+names available to you in the form of a vector that you can both read from and write to
+the column names as needed. The name of your data frame is the argument inside the
+parenthesis. For the first replacement, replace .Abbreviation with nothing so the
+column name is State. Replace GU.Name with County. Construct the second
+replacement command so that it both makes the assignment and displays the contents
+of the vector in a single step.
+
+
+5. Create a new data frame by combining the Texas counties data frame with the drought data that
+was in the workspace you downloaded from eCampus. Include data from all rows of both data
+frames in the results. Construct the command that creates the data frame so that it also
+displays the contents of the data frame at the same time. Display a summary of the new data
+frame.
+
+
+6. The drought data contains drought information about selected Texas counties. The CountyArea
+column gives the total number of square miles covered by the county. The None column
+designates the percentage of the county that was not under any drought condition at the time
+the data were collected. The columns D0 through D4 show the percentage of the county under
+that level of drought with D4 being the most severe level of drought. The levels are inclusive
+such that any portion of the county that is at a D4 level of drought is also at levels D0 through
+D4. That is why some counties have multiple levels that are at 100% drought. Create a new
+column in the data frame created in the previous step. This column will be the number of
+square miles in the county that are under no drought condition. (Multiply CountyArea by the
+percentage in None.) Create 5 more columns showing the area under drought conditions D0
+through D4 respectively.
+a. Display the updated data frame and its structure.
+b. Use the colSums function to display the statewide totals of each of the new Area
+columns. Use the apply function to make the same calculation.
+
+7. Display a list of County names and D1 Area from the highest to the lowest D1 Area value.
+
+8. Display a list of County names and None for the top ten counties with the largest percentage of
+None.
+
+
+9. Display a list of County names whose D0 value is less than 100 percent but not missing.
+
+10. Display all data for Counties whose names begin with the letter C.
+
+
+11. Display the contents of the workspace.
