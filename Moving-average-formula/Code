@@ -1,0 +1,60 @@
+Sys.time()
+
+#Step 1- Housekeeping steps
+
+ls()
+rm(list=ls())
+ls()
+
+#Directing all graphic output to your PDF document
+pdf("D:\\Study_material_MS_MIS\\summer16\\assignment\\assignment 6\\nishant2014sinha_HW06_graphics.pdf", width= 8.5, height=11,paper="special")
+
+#Step 2- Caculating and plotting the moving average for 10000 values. alpha is a, beta is b
+
+a=0.33
+b=0.66
+set.seed(52916)
+w<-rnorm(10001)
+X<-rep(0,10001)
+
+for(i in 2:10001){
+	X[i]<-2+w[i]-a*w[i-1]+b*X[i-1]
+}
+
+plot(1:1000,X[9002:10001],type='l',ylab= "Moving Average")
+
+#Step 3- Creating a function for the above code 
+
+movavg<-function(a,b,size=10000,pointsx=1000,seed=52916){
+
+set.seed(seed)
+w<-rnorm(size+1)
+X<-rep(0,size+1)
+
+for(i in 2:size+1){
+	X[i]<-2+w[i]-a*w[i-1]+b*X[i-1]
+}
+
+plot(1:pointsx,X[(size+1-pointsx):size+1],type='l',ylab= "Moving Average",
+main =expression(paste("Plot of X"[n], " = 2 + ",omega[n], " - ",alpha,omega[n-1]," + ",beta,"X"[n-1])), 
+xlab=bquote(paste(alpha," = ",.(a),sep="   " ,beta," = ",.(b))))
+
+}
+
+#Step 4- Setting up graphics with two rows of graphics on the output page
+#	   Overall margin - top-1 inch, left-1.5 inches, right-0.5 inches, bottom-1 inch. 
+
+par(mfrow=c(2,1), mar=c(5,4,2,0),omi=c(1,1.5,1,0.5))
+
+#Step 5- Calling function twice
+
+movavg(0.33,0.66)
+movavg(0.20,0.80,5000,500,52916)
+
+#Step 6- system time in the bottom outer margin of the page outside plots.
+
+timestamp<-format(Sys.time(), "%Y-%m-%d %H:%M:%S")
+mtext(timestamp,side =1, outer=T, adj=0)
+
+#Step 7- Closing the opened graphic device
+graphics.off()
