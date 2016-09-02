@@ -1,0 +1,53 @@
+2. Create a data frame by reading in the data from the rainfall.txt that you downloaded from
+eCampus. The number -999 was used as a placeholder for the remaining months of 2016 on
+each state. If these numbers are left in the data they will seriously skew our analysis. Add an
+option to the function that reads the data so that these values are automatically read in as NA.
+This option was covered in the section on importing data near the middle of R Lesson 5. Display
+a summary of the new data frame.
+
+3. Create a second data frame that contains only the statewide precipitation data for Texas. The
+Texas data is designated by a value of TX-ST in the first column. The command to create the
+data frame should also display the results of the data frame in one step. When you set up your
+index values to specify which rows and columns will be in the new data frame,use the with
+function to create a mask for the Texas rows and use a negative index to remove the first
+column. Use the min function combined with the with function to display the minimum annual
+Texas precipitation amount. Display the maximum annual Texas precipitation amount in a
+similar manner.
+
+4. Use a line of code to direct all graphic output to your PDF document. (You may want to wait
+until you have your graphics working correctly before you add the line to redirect to PDF so you
+can see the results in your R session.)
+
+5. Create a histogram of the annual precipitation amounts from Texas data with breaks at every 4
+inches of precipitation. Start the breaks at the first multiple of 4 below the minimum and go to
+the next multiple of 4 above the maximum. You may hard code the start and end values when
+setting up your break points. (The term “hard coding” refers to entering an actual value like
+34.4 in your program logic instead of using a formula.) Make sure the layout, labels, and title all
+match the sample output.
+
+6. Add a blue line to the graph that shows the normal distribution density of these annual
+precipitation amounts.
+
+7. Draw a red vertical line at the mean annual precipitation value. Use a function to determine the
+position of the line instead of hard coding the current mean value.
+
+8. There is a saying that “April showers bring May flowers”. But we want to know if April showers
+are a prediction of annual precipitation amounts. Create a new plot using the Texas data
+showing the April precipitation amounts compared to the annual amounts. The color of the
+diamonds is dark green.
+
+9. Add a fit line to the plot.
+
+10. Use functions to imbed text showing the date and time of creation in the lower right hand
+corner of the graph area. The coordinates of the time stamp location need only be close to the
+ones used for the sample output. You may hard code these coordinates. The date and time
+must change automatically each time the script is run.
+
+11. Create a boxplot of the Texas precipitation amounts of all years by month. Make sure the axes
+use the scale and labels shown in the posted output. The inside of the boxes is light blue.
+
+12. Since 2015 was the wettest year in Texas history, show the precipitation amount in 2015 for
+each month using a blue dot at the appropriate position. Use the appropriate plot character so
+the dot is filled in with the blue color. The magnification of the dot is 1.5 times the default size.
+All labels and titles must match the sample output. (You may need to coerce the 2015 vector to
+the desired data type in order to get the points to plot correctly.)
