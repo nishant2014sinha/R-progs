@@ -7,11 +7,7 @@ library(ROCR)
 
 attach(Weekly)
 
-#Question 1 
-#1. Textbook Chapter 4 - Question 10
-#This question should be answered using the Weekly data set, which is part of the 'ISLR'
-#package. This data is similar in nature to the Smarket data from this chapter's lab, except that
-#it contains 1,089 weekly returns for 21 years, from the beginning of 1990 to the end of 2010.
+
 
 #(a) Produce some numerical and graphical summaries of the Weekly data. Do there appear to
 #be any patterns?
